@@ -107,8 +107,18 @@ input[type=range]{flex:1;accent-color:#ff5a1f;height:30px}
 #s-workout[data-phase=recovery]{--p1:#2a62ff;--fg:#fff}
 .w-bg{position:absolute;inset:0;z-index:0;background-color:var(--p1);transition:background-color .35s ease,filter .35s ease;overflow:hidden}
 .w-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 15% 0%,rgba(255,255,255,.30),transparent 60%),linear-gradient(170deg,transparent 40%,rgba(0,0,0,.28))}
-.w-bg::after{content:"";position:absolute;top:-10%;bottom:-10%;left:-200px;right:-200px;background:repeating-linear-gradient(115deg,rgba(255,255,255,.07) 0 60px,transparent 60px 120px);animation:stripes 5s linear infinite}
-@keyframes stripes{to{transform:translateX(132.4px)}}
+/* aurora: macchie di luce morbide che si spostano lentamente; nel lavoro si muovono più in fretta */
+.w-bg::after{content:"";position:absolute;inset:-35%;background:
+  radial-gradient(32% 28% at 28% 32%,rgba(255,255,255,.30),transparent 70%),
+  radial-gradient(28% 34% at 72% 62%,rgba(255,255,255,.20),transparent 70%),
+  radial-gradient(36% 30% at 58% 22%,rgba(0,0,0,.20),transparent 70%),
+  radial-gradient(30% 26% at 30% 78%,rgba(0,0,0,.16),transparent 70%);
+  animation:aurora 16s ease-in-out infinite alternate;will-change:transform}
+#s-workout[data-phase=work] .w-bg::after{animation-duration:7s}
+@keyframes aurora{
+  0%{transform:translate(-7%,-5%) rotate(0deg) scale(1)}
+  50%{transform:translate(6%,4%) rotate(14deg) scale(1.12)}
+  100%{transform:translate(-3%,7%) rotate(-10deg) scale(1.04)}}
 #s-workout.paused .w-bg{filter:saturate(.35) brightness(.78)}
 #s-workout.paused .w-bg::after{animation-play-state:paused}
 .w-flash{position:absolute;inset:0;z-index:8;background:#fff;opacity:0;pointer-events:none}
@@ -126,8 +136,6 @@ input[type=range]{flex:1;accent-color:#ff5a1f;height:30px}
 .w-brand{display:flex;align-items:center;gap:10px;min-width:0}
 .w-logo{height:clamp(34px,7vmin,64px);min-width:0;background:rgba(12,12,18,.88);border-radius:14px;padding:6px 12px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .w-logo svg{height:100%;width:auto;display:block}
-.w-wm{position:absolute;left:50%;top:50%;width:min(150vmin,130vmax);transform:translate(-50%,-50%) rotate(-24deg);color:var(--fg);opacity:.12;pointer-events:none}
-.w-wm svg{width:100%;height:auto;display:block}
 .w-fs{width:clamp(36px,7vmin,48px);height:clamp(36px,7vmin,48px);border-radius:12px;background:var(--glass);border:1px solid var(--glassb);display:grid;place-items:center;font-size:clamp(18px,3.6vmin,26px);flex:none}
 .w-counters{display:flex;gap:8px;flex:none}
 .pill{background:var(--glass);border:1px solid var(--glassb);border-radius:16px;padding:6px 12px;display:flex;align-items:baseline;gap:8px}
@@ -295,7 +303,7 @@ input[type=range]{flex:1;accent-color:#ff5a1f;height:30px}
 
 <!-- ALLENAMENTO -->
 <section class="screen" id="s-workout" data-phase="prep">
-  <div class="w-bg"><div class="w-wm" data-logo="mono"></div></div>
+  <div class="w-bg"></div>
   <div class="w-top">
     <div class="w-brand">
       <div class="w-logo" data-logo="color"></div>
